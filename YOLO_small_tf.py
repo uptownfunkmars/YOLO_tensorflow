@@ -7,6 +7,7 @@ import os
 
 class YOLO_TF:
 	fromfile = None
+	fromfolder = None
 	tofile_img = 'test/output.jpg'
 	tofile_txt = 'test/output.txt'
 	imshow = True
@@ -106,7 +107,7 @@ class YOLO_TF:
 
 		conv = tf.nn.conv2d(inputs_pad, weight, strides=[1, stride, stride, 1], padding='VALID',name=str(idx)+'_conv')	
 		conv_biased = tf.add(conv,biases,name=str(idx)+'_conv_biased')	
-		if self.disp_console : print '    Layer  %d : Type = Conv, Size = %d * %d, Stride = %d, Filters = %d, Input channels = %d' % (idx,size,size,stride,filters,int(channels))
+		if self.disp_console : print ('Layer  %d : Type = Conv, Size = %d * %d, Stride = %d, Filters = %d, Input channels = %d' % (idx,size,size,stride,filters,int(channels))
 		return tf.maximum(self.alpha*conv_biased,conv_biased,name=str(idx)+'_leaky_relu')
 
 	def pooling_layer(self,idx,inputs,size,stride):
